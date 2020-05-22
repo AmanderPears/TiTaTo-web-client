@@ -1,20 +1,17 @@
 .main {
-    display: flex;
-    width: 100%;
-}
-
-.game {
-    min-width:60%;
-    align-self: flex-start;
+    display: grid;
+    grid-template-columns: auto 400px;
 }
 
 .rightPanel {
-    width: 40%;
-    align-self: flex-end;
     margin-right: 10px;
 }
 
 .rightPanel > div{
+    margin-bottom: 10px;
+}
+
+.game {
     margin-bottom: 10px;
 }
 
