@@ -1,0 +1,40 @@
+/* player list css */
+.playerList {
+    display: flex;
+    height: auto;
+    max-height: 300px;
+    overflow-y: scroll;
+    flex-direction: column-reverse;
+}
+
+.playerListItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+/* custom scroll bar */
+/* width */
+::-webkit-scrollbar {
+    width: 4px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background-color: rgba(0,0,0,0.26);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background:  #1976d2; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #1976d2;
+}
+
+mat-list-item:nth-child(even) {
+    background-color: #eceef8;
+}

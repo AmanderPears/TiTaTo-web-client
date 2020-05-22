@@ -1,0 +1,22 @@
+<mat-toolbar class="mat-elevation-z2" color="primary">
+  <span>TiTaTo!</span>
+</mat-toolbar>
+<br>
+
+<div class="main">
+  <!-- game -->
+  <div class="game"></div>
+  <!-- info -->
+  <div class="rightPanel">
+    <!-- players -->
+    <div class="mat-elevation-z1">
+      <app-player-list (myEvent)="processEvent($event)"></app-player-list>
+    </div>
+    <!-- chat -->
+    <div class="mat-elevation-z1 chat">
+      <app-chat></app-chat>
+    </div>
+  </div>
+</div>
+
+<router-outlet></router-outlet>

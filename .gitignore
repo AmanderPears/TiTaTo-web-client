@@ -1,0 +1,8 @@
+ssh
+ssh.pub
+.DS_Store
+thumbs.db
+node_modules/
+
+/TiTaTo-electron/TiTaTo-client/
+/TiTaTo-electron/TiTaTo-darwin-x64/
