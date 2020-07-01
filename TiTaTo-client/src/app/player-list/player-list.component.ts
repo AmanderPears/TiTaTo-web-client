@@ -34,7 +34,8 @@ export class PlayerListComponent implements OnInit {
   }
 
   play(client: any): void {
-    this.myEvent.emit({ event: 'play', id: client.id });
+    this.socket.emit('gameInvite', client.id);
+    this.myEvent.emit({ event: 'play', id: client.id, name: client.name });
   }
 
 }

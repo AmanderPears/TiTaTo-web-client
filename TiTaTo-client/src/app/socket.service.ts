@@ -10,7 +10,9 @@ export class SocketService {
   reload: boolean = false;
 
   constructor() {
-    this.socket = io('http://192.168.0.105:3000/');
+    // this.socket = io('http://localhost:3000/');
+    this.socket = io('http://192.168.0.191:14141/');
+    
 
     //use seesion storadge to remember setting
     if (window.sessionStorage.getItem('id')) {
@@ -36,4 +38,8 @@ export class SocketService {
   setName(name: string): void {
     window.sessionStorage.setItem('name', name);
   }
+
+  // sendGameInvite(id: string): void {
+  //   this.socket.emit('gameInvite', this.socket.id);
+  // }
 }
