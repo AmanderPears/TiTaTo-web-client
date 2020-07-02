@@ -22,6 +22,7 @@ export class PlayerListComponent implements OnInit {
   ngOnInit(): void {
 
     this.socket.on('clientList', cl => {
+      // console.log(cl)
       this.clientList = cl.filter(c => {
         return c.id != this.socket.id;
       });

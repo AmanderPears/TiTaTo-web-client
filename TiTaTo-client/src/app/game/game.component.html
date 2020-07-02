@@ -56,7 +56,9 @@
                 </mat-card-title>
 
                 <mat-card-content>
-                    <span>{{(status.gameWinner == "x" && status.gameFirstPlayer) || (status.gameWinner == "o" && !status.gameFirstPlayer) ? "You" : (status.recipientName ? status.recipientName : status.senderName)}} won the game!</span>
+                    <span *ngIf="status.gameWinner != '-'">{{(status.gameWinner == "x" && status.gameFirstPlayer) || (status.gameWinner == "o" && !status.gameFirstPlayer) ? "You" : (status.recipientName ? status.recipientName : status.senderName)}} won the game!</span>
+
+                    <span *ngIf="status.gameWinner == '-'">The game was a draw.</span>
                 </mat-card-content>
 
                 <mat-card-actions>

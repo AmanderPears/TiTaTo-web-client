@@ -10,7 +10,7 @@ app.get('/', (req, res) => {
 //     socket: null,
 //     nickname: null
 // };
-var clients = new Set();
+var clients = [];
 
 io.on('connection', (socket) => {
 
@@ -19,23 +19,26 @@ io.on('connection', (socket) => {
     var client = {
         id: socket.id,
         name: socket.id,
+        busy: false
     };
 
-    clients.add(client);
+    clients.push(client);
     //var msgLog = [];
 
     //broadcast updated player list
-    io.emit('clientList', Array.from(clients));
+    io.emit('clientList', clients);
 
     //process disconnect
     socket.on('disconnect', () => {
         console.log(socket.id + ' disconnected');
 
         // remove clients who disconnect
-        clients.delete(client);
+        // clients.delete(client);
+        let remInd = clients.findIndex(c => c.id === client.id);
+        clients.splice(remInd, 1);
 
         //broadcast updated player list
-        io.emit('clientList', Array.from(clients));
+        io.emit('clientList', clients);
     });
 
     // normal message
@@ -50,7 +53,7 @@ io.on('connection', (socket) => {
         if (n) {
             var oldname = client.name;
             client.name = n;
-            io.emit('clientList', Array.from(clients));
+            io.emit('clientList', clients);
             msg = `Your name changed from ${oldname} to ${client.name}`;
         } else {
             msg = `Your name: ${client.name}`;
@@ -93,6 +96,26 @@ io.on('connection', (socket) => {
 
     socket.on('gameInviteResponse', data => {
         io.to(data.id).emit('gameInviteResponse', data.res);
+
+        //set busy if invite accepted
+        if (data.res) {
+
+            // for (let c in clients) {
+            //     if (c.id === data.id || c.id === client.id) { 
+            //         c.busy = true;
+            //     }
+            // }
+
+            for (let i = 0; i < clients.length; i++) {
+                if (clients[i].id === data.id || clients[i].id === client.id) {
+                    clients[i].busy = true;
+                }
+            }
+
+
+            // client.busy = true;
+            io.emit('clientList', Array.from(clients));
+        }
     });
 
     socket.on('gameData', data => {
@@ -108,6 +131,10 @@ io.on('connection', (socket) => {
             [0, 4, 8], [2, 4, 6]
         ];
 
+        //draw
+        if (-1 === data.data.findIndex(v => v === "")) winner = "-";
+
+        //check if someone won
         matchIndex.some(m => {
             if (data.data[m[0]] == data.data[m[1]] && data.data[m[1]] == data.data[m[2]] && data.data[m[2]] != "") {
                 winner = data.data[m[2]];
@@ -118,6 +145,13 @@ io.on('connection', (socket) => {
         if (winner) {
             res['winner'] = winner;
             socket.emit('gameData', res);
+
+            //clear busy status
+            for (let i = 0; i < clients.length; i++) {
+                if (clients[i].id == client.id || clients[i].id == data.id)
+                    clients[i].busy = false;
+            }
+            io.emit('clientList', clients);
         }
 
         io.to(data.id).emit('gameData', res);
