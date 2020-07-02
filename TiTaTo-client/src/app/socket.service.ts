@@ -10,8 +10,8 @@ export class SocketService {
   reload: boolean = false;
 
   constructor() {
-    this.socket = io('http://localhost:3000/');
-    // this.socket = io('http://192.168.0.191:14141/');
+    // this.socket = io('http://localhost:3000/');
+    this.socket = io('http://192.168.0.191:8080/');
     
 
     //use seesion storadge to remember setting
