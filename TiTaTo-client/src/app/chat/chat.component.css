@@ -1,0 +1,51 @@
+.spacer {
+    flex: 1 1 auto;
+}
+
+form {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    /* background-color: lightgray; */
+}
+
+mat-form-field {
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 100%;
+}
+
+#msgLogList {
+    display: flex;
+    height: 300px;
+    overflow-y: scroll;
+    flex-direction: column-reverse;
+}
+
+/* custom scroll bar */
+/* width */
+::-webkit-scrollbar {
+    width: 4px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background-color: rgba(0,0,0,0.2); 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #1976d2; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #1976d2;
+}
+
+.titleToolbar {
+    /* background-color: lightskyblue; */
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}

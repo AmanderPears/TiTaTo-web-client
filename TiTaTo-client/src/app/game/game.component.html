@@ -1,0 +1,88 @@
+<div id="gameContainer" class="mat-elevation-z1">
+    <div #overlayDiv id="overlayDiv" *ngIf="!status.gameActive">
+        <!-- inactive -->
+        <div *ngIf="status.inactive">
+            <h1>Challenge someone to start a game.</h1>
+        </div>
+
+        <!-- invite sent -->
+        <div *ngIf="status.inviteSent">
+            <mat-card>
+                <mat-card-title>
+                    Invite Sent
+                </mat-card-title>
+
+                <mat-card-content>
+                    <!-- waiting for respons -->
+                    <div *ngIf="!status.inviteResponse">
+                        <span>Waiting for {{status.recipientName}} to accept invite.</span>
+                        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+                    </div>
+                    <!-- response received -->
+                    <div *ngIf="status.inviteResponse">
+                        <span>
+                            <p>{{status.recipientName}} {{status.inviteReceived? 'accepted' : 'declined'}} the invite.
+                            </p>
+                        </span>
+                    </div>
+                </mat-card-content>
+
+            </mat-card>
+        </div>
+
+        <!-- invite recieved -->
+        <div *ngIf="status.inviteReceived">
+            <mat-card>
+                <mat-card-title>
+                    Game invitation
+                </mat-card-title>
+
+                <mat-card-content>
+                    <span>{{status.senderName}} sent you a game invite.</span>
+                </mat-card-content>
+
+                <mat-card-actions>
+                    <button mat-button (click)="inviteResponse(true)">ACCEPT</button>
+                    <button mat-button (click)="inviteResponse(false)">Decline</button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+
+        <!-- game over -->
+        <div *ngIf="status.gameWinner">
+            <mat-card>
+                <mat-card-title>
+                    Game Result
+                </mat-card-title>
+
+                <mat-card-content>
+                    <span *ngIf="status.gameWinner != '-'">{{(status.gameWinner == "x" && status.gameFirstPlayer) || (status.gameWinner == "o" && !status.gameFirstPlayer) ? "You" : (status.recipientName ? status.recipientName : status.senderName)}} won the game!</span>
+
+                    <span *ngIf="status.gameWinner == '-'">The game was a draw.</span>
+                </mat-card-content>
+
+                <mat-card-actions>
+                    <button mat-button (click)="gameEnd()">Close</button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+    </div>
+
+    <div id="tileContainer">
+        <!-- <div class="tile"><button mat-button>#</button></div>
+        <div class="tile"><button mat-button>#</button></div>
+        <div class="tile"><button mat-button>#</button></div>
+
+        <div class="tile"><button mat-button>#</button></div>
+        <div class="tile"><button mat-button>#</button></div>
+        <div class="tile"><button mat-button>#</button></div>
+
+        <div class="tile"><button mat-button>#</button></div>
+        <div class="tile"><button mat-button>#</button></div>
+        <div class="tile"><button mat-button>#</button></div> -->
+        <div class="tile" *ngFor="let b of status.gameData; let i = index">
+            <button mat-stroked-button (click)="gameButtonClick(i)" [disabled]="b.used" [style.pointer-events]="status.gameTurn ? 'auto' : 'none'">{{b.value}}</button>
+        </div>
+    </div>
+
+</div>

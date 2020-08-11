@@ -1,0 +1,52 @@
+<mat-toolbar color="primary">
+    <span>Chat</span>
+
+    <span class="spacer"></span>
+
+    <!-- menu -->
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+    </button>
+</mat-toolbar>
+
+<!-- menu items for toolbar  -->
+<mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="changeName()">
+        <span>Change name</span>
+    </button>
+</mat-menu>
+
+<mat-tab-group #chatChannels
+    [selectedIndex]="currentTabIndex.value"
+    (selectedIndexChange)="currentTabIndex.setValue($event)"
+    (selectedTabChange)=tabChanged($event)>
+    <mat-tab *ngFor="let tab of tabs" label="{{tab.name}}">
+        <div #msgLogList id="msgLogList">
+            <mat-list>
+                <mat-list-item *ngFor="let msg of tab.msgLog">
+                    <p><b>{{msg.name}}</b>: {{msg.msg}}</p>
+                </mat-list-item>
+            </mat-list>
+        </div>
+    </mat-tab>
+    <!-- <mat-tab label="Global">
+        <div #msgLogList id="msgLogList">
+            <mat-list role="list">
+                <mat-list-item role="listitem" *ngFor="let msg of msgLog">
+                    <p><b>{{msg.sender}}</b>: {{msg.value}}</p>
+                </mat-list-item>
+            </mat-list>
+        </div>
+    </mat-tab> -->
+</mat-tab-group>
+
+<mat-divider></mat-divider>
+<form>
+    <mat-form-field>
+        <!-- <mat-label>Send a message...</mat-label> -->
+        <input name="msg" matInput type="text" autocomplete="off" [(ngModel)]="value">
+        <button mat-button [disabled]="!value" matSuffix mat-icon-button (click)="send()">
+            <mat-icon>send</mat-icon>
+        </button>
+    </mat-form-field>
+</form>

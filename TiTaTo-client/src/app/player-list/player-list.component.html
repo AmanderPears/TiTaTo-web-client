@@ -1,0 +1,28 @@
+<mat-toolbar color="primary">
+    <span>Players Online</span>
+</mat-toolbar>
+
+<div class="playerList">
+    <mat-list role="list">
+        <mat-list-item role="listitem" *ngFor="let client of clientList">
+            <span class="playerListItem">
+
+                <!-- <span>
+                <mat-icon class="playerListItemStatus">check_circle</mat-icon>
+            </span> -->
+
+                <span class="playerListItemName">{{client.name}}</span>
+
+                <span class="playerListItemActions">
+                    <button mat-icon-button (click)="chat(client)">
+                        <mat-icon>message</mat-icon>
+                    </button>
+                    <button mat-icon-button (click)="play(client)" [disabled]="client.busy">
+                        <mat-icon>double_arrow</mat-icon>
+                    </button>
+                </span>
+
+            </span>
+        </mat-list-item>
+    </mat-list>
+</div>

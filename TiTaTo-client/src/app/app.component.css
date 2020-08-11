@@ -1,0 +1,17 @@
+.main {
+    display: grid;
+    grid-template-columns: auto 400px;
+}
+
+.rightPanel {
+    margin-right: 10px;
+}
+
+.rightPanel > div{
+    margin-bottom: 10px;
+}
+
+.game {
+    margin-bottom: 10px;
+}
+
